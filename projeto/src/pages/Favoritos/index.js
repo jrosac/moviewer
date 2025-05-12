@@ -17,9 +17,24 @@ useEffect(()=>{
 
 },[])
 
+
+    function excluirFilme(id){
+        //alert(`id clicado ${id}`)
+        let filtroFilmes = filmes.filter((item)=>{
+            return (item.id !== id)
+        })
+
+        setFilmes(filtroFilmes);
+        localStorage.setItem("@filmes", JSON.stringify(filtroFilmes));
+
+    }
+    
+
     return(
         <div className="meus-filmes">
             <h1>Meus filmes</h1>
+
+            {filmes.length === 0 && <span>Voce não possui nenhum filme salvo :(</span>}
 
             <ul>
                 {filmes.map((filme)=>{
@@ -28,7 +43,7 @@ useEffect(()=>{
                             <span>{filme.title}</span>
                             <div>
                                 <Link to={`/filme/${filme.id}`}>Ver detalhes</Link>
-                                <button>Excluir</button>
+                                <button onClick={()=> excluirFilme(filme.id)}>Excluir</button>
                             </div>
 
                         </li>
